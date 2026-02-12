@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Piyusha ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff6a88, #ff99ac);
+    }
+
+    .card {
+      background: white;
+      padding: 30px 25px 40px;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 15px 35px rgba(0,0,0,.25);
+      animation: pop 0.8s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .buttons {
+      position: relative;
+      height: 160px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      transition: 0.2s;
+    }
+
+    #yesBtn {
+      background: #4CAF50;
+      color: white;
+      left: 20%;
+      top: 70px;
+    }
+
+    #noBtn {
+      background: #f44336;
+      color: white;
+      left: 55%;
+      top: 70px;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2b03f0a07c.mp3?filename=romantic-piano-112191.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card">
+    <h1>Will you be my Valentine, Piyusha? 💖</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const container = document.querySelector(".buttons");
+    const music = document.getElementById("bgMusic");
+
+    document.body.addEventListener("click", () => {
+      music.play();
+    }, { once: true });
+
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("touchstart", moveNo);
+
+    function moveNo() {
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
+
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
+
+      noBtn.style.left = randX + "px";
+      noBtn.style.top = randY + "px";
+    }
+
+    yesBtn.onclick = () => {
+      confetti({
+        particleCount: 250,
+        spread: 90,
+        origin: { y: 0.6 }
+      });
+
+      document.querySelector("h1").innerHTML = "Yay! ❤️ I love you, Piyusha!";
+    };
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    setInterval(createHeart, 350);
+  </script>
+
+</body>
+</html>
